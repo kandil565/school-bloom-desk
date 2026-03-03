@@ -21,6 +21,18 @@ import ProfilePage from "@/pages/ProfilePage";
 import SettingsPage from "@/pages/SettingsPage";
 import SignOutPage from "@/pages/SignOutPage";
 import NotFound from "@/pages/NotFound";
+import CurriculumManagement from "@/pages/CurriculumManagement";
+import GradesAssessment from "@/pages/GradesAssessment";
+import LibraryManagement from "@/pages/LibraryManagement";
+import Transportation from "@/pages/Transportation";
+import ParentPortal from "@/pages/ParentPortal";
+import Notifications from "@/pages/Notifications";
+import AdvancedReports from "@/pages/AdvancedReports";
+import EventsActivities from "@/pages/EventsActivities";
+import ComplaintsSuggestions from "@/pages/ComplaintsSuggestions";
+import FeeManagement from "@/pages/FeeManagement";
+import DigitalArchive from "@/pages/DigitalArchive";
+import Analytics from "@/pages/Analytics";
 
 const queryClient = new QueryClient();
 
@@ -38,7 +50,6 @@ const App = () => (
               <Route path="/hr" element={<HRManagement />} />
               <Route path="/students" element={<StudentManagement />} />
               <Route path="/attendance" element={<StaffAttendance />} />
-              <Route path="/hr" element={<HRManagement />} />
               <Route path="/payroll" element={<Payroll />} />
               <Route path="/canteen" element={<Canteen />} />
               <Route path="/inventory" element={<Inventory />} />
@@ -46,6 +57,18 @@ const App = () => (
               <Route path="/workshops" element={<Workshops />} />
               <Route path="/assets" element={<AssetsCustody />} />
               <Route path="/reports" element={<Reports />} />
+              <Route path="/curriculum" element={<CurriculumManagement />} />
+              <Route path="/grades" element={<GradesAssessment />} />
+              <Route path="/library" element={<LibraryManagement />} />
+              <Route path="/transportation" element={<Transportation />} />
+              <Route path="/parent-portal" element={<ParentPortal />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/advanced-reports" element={<AdvancedReports />} />
+              <Route path="/events" element={<EventsActivities />} />
+              <Route path="/complaints" element={<ComplaintsSuggestions />} />
+              <Route path="/fees" element={<FeeManagement />} />
+              <Route path="/archive" element={<DigitalArchive />} />
+              <Route path="/analytics" element={<Analytics />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/signout" element={<SignOutPage />} />
