@@ -1,22 +1,24 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function GradesAssessment() {
+  const { t } = useLanguage();
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">الدرجات والتقييم</h1>
+        <h1 className="text-3xl font-bold">{t("grades")}</h1>
         <Button className="gap-2">
           <Plus className="h-4 w-4" />
-          إضافة درجات
+          {t("addItem")}
         </Button>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">الطلاب المقركين</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("totalStudents")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">1,250</div>
@@ -24,7 +26,7 @@ export default function GradesAssessment() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">الاختبارات</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("Action")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">32</div>
@@ -32,7 +34,7 @@ export default function GradesAssessment() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">المتوسط العام</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("academicPerformance")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">82.5</div>
@@ -40,7 +42,7 @@ export default function GradesAssessment() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">المتأخرون</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("lateArrivals")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">15</div>
@@ -50,23 +52,23 @@ export default function GradesAssessment() {
 
       <Card>
         <CardHeader>
-          <CardTitle>كشوفات الدرجات</CardTitle>
+          <CardTitle>{t("gradeTable")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
             <div className="border rounded-lg p-4 flex justify-between items-center">
               <div>
-                <h3 className="font-semibold">الفترة الأولى</h3>
+                <h3 className="font-semibold">{t("pending")}</h3>
                 <p className="text-sm text-gray-500">من 1 سبتمبر - 30 نوفمبر</p>
               </div>
-              <Button variant="outline">عرض</Button>
+              <Button variant="outline">{t("viewAll")}</Button>
             </div>
             <div className="border rounded-lg p-4 flex justify-between items-center">
               <div>
-                <h3 className="font-semibold">الفترة الثانية</h3>
+                <h3 className="font-semibold">{t("Completed")}</h3>
                 <p className="text-sm text-gray-500">من 1 ديسمبر - 28 فبراير</p>
               </div>
-              <Button variant="outline">عرض</Button>
+              <Button variant="outline">{t("viewAll")}</Button>
             </div>
           </div>
         </CardContent>

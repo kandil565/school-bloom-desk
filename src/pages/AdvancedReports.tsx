@@ -1,16 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download, FileText } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function AdvancedReports() {
+  const { t } = useLanguage();
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">التقارير المتقدمة</h1>
+      <h1 className="text-3xl font-bold">{t("advanced_reports")}</h1>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">التقارير المُنشأة</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("generated")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">248</div>
@@ -18,7 +20,7 @@ export default function AdvancedReports() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">التقارير المجدولة</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("scheduled")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">12</div>
@@ -26,7 +28,7 @@ export default function AdvancedReports() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">التقارير المُصدَّرة</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("exportData")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">156</div>
@@ -38,49 +40,49 @@ export default function AdvancedReports() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5" />
-            تقارير متاحة
+            {t("recentReports")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
             <div className="border rounded-lg p-4 flex justify-between items-center">
               <div>
-                <h3 className="font-semibold">تقرير الحضور الشامل</h3>
-                <p className="text-sm text-gray-500">تقرير شامل لحضور الطلاب والموظفين</p>
+                <h3 className="font-semibold">{t("attendanceReport")}</h3>
+                <p className="text-sm text-gray-500">{t("attendanceReportDesc")}</p>
               </div>
               <Button size="sm" variant="outline" className="gap-2">
                 <Download className="h-4 w-4" />
-                تنزيل
+                {t("exportData")}
               </Button>
             </div>
             <div className="border rounded-lg p-4 flex justify-between items-center">
               <div>
-                <h3 className="font-semibold">تقرير الأداء الأكاديمي</h3>
-                <p className="text-sm text-gray-500">تحليل الدرجات والمستويات الأكاديمية</p>
+                <h3 className="font-semibold">{t("payrollSummary")}</h3>
+                <p className="text-sm text-gray-500">{t("payrollSummaryDesc")}</p>
               </div>
               <Button size="sm" variant="outline" className="gap-2">
                 <Download className="h-4 w-4" />
-                تنزيل
+                {t("exportData")}
               </Button>
             </div>
             <div className="border rounded-lg p-4 flex justify-between items-center">
               <div>
-                <h3 className="font-semibold">تقرير الموارد المالية</h3>
-                <p className="text-sm text-gray-500">تقرير التكاليف والإيرادات</p>
+                <h3 className="font-semibold">{t("inventoryReport")}</h3>
+                <p className="text-sm text-gray-500">{t("inventoryReportDesc")}</p>
               </div>
               <Button size="sm" variant="outline" className="gap-2">
                 <Download className="h-4 w-4" />
-                تنزيل
+                {t("exportData")}
               </Button>
             </div>
             <div className="border rounded-lg p-4 flex justify-between items-center">
               <div>
-                <h3 className="font-semibold">تقرير إدارة الموارد البشرية</h3>
-                <p className="text-sm text-gray-500">كشف الرواتب والعاملين</p>
+                <h3 className="font-semibold">{t("financialReport")}</h3>
+                <p className="text-sm text-gray-500">{t("financialReportDesc")}</p>
               </div>
               <Button size="sm" variant="outline" className="gap-2">
                 <Download className="h-4 w-4" />
-                تنزيل
+                {t("exportData")}
               </Button>
             </div>
           </div>

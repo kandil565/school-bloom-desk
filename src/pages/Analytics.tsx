@@ -1,17 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, BarChart, PieChart, TrendingUp } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Analytics() {
+  const { t } = useLanguage();
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">لوحة التحكم الذكية</h1>
+      <h1 className="text-3xl font-bold">{t("analytics")}</h1>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
-              أداء الطلاب
+              {t("performanceMetrics")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -21,7 +23,7 @@ export default function Analytics() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">معدل الحضور</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("attendanceRate")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">94.8%</div>
@@ -30,7 +32,7 @@ export default function Analytics() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">رضا الأهالي</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("parentSatisfaction")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">91.3%</div>
@@ -39,7 +41,7 @@ export default function Analytics() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">النمو الإجمالي</CardTitle>
+            <CardTitle className="text-sm font-medium">{t("overallGrowth")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">+12.5%</div>
@@ -53,7 +55,7 @@ export default function Analytics() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <LineChart className="h-5 w-5" />
-              اتجاه الأداء الأكاديمي
+              {t("academicTrend")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -93,26 +95,26 @@ export default function Analytics() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BarChart className="h-5 w-5" />
-              توزيع الطلاب
+              {t("studentDistribution")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span>المرحلة الابتدائية</span>
+                  <span>{t("grade")} {t("primary")}</span>
                   <span className="font-semibold">450</span>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span>المرحلة الإعدادية</span>
+                  <span>{t("grade")} {t("preparatory")}</span>
                   <span className="font-semibold">380</span>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span>المرحلة الثانوية</span>
+                  <span>{t("grade")} {t("secondary")}</span>
                   <span className="font-semibold">420</span>
                 </div>
               </div>
@@ -125,22 +127,22 @@ export default function Analytics() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <PieChart className="h-5 w-5" />
-            مؤشرات الأداء الرئيسية (KPIs)
+            {t("dashboardMetrics")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-3">
             <div className="text-center border rounded-lg p-4">
               <div className="text-3xl font-bold text-blue-600">1,250</div>
-              <p className="text-sm text-gray-600 mt-2">إجمالي الطلاب</p>
+              <p className="text-sm text-gray-600 mt-2">{t("totalStudents")}</p>
             </div>
             <div className="text-center border rounded-lg p-4">
               <div className="text-3xl font-bold text-green-600">85</div>
-              <p className="text-sm text-gray-600 mt-2">الموظفون</p>
+              <p className="text-sm text-gray-600 mt-2">{t("totalEmployees")}</p>
             </div>
             <div className="text-center border rounded-lg p-4">
               <div className="text-3xl font-bold text-purple-600">4.5/5</div>
-              <p className="text-sm text-gray-600 mt-2">متوسط التقييم</p>
+              <p className="text-sm text-gray-600 mt-2">{t("averageRating")}</p>
             </div>
           </div>
         </CardContent>
