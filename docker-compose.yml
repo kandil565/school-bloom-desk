@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: school_management_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - school_net
+
+  backend:
+    build: ./backend
+    container_name: school_management_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/school-management
+      - JWT_SECRET=school_management_super_secret_jwt_2024
+      - JWT_EXPIRE=7d
+      - PORT=5000
+    depends_on:
+      - mongodb
+    networks:
+      - school_net
+
+networks:
+  school_net:
+    driver: bridge
+
+volumes:
+  mongo_data:

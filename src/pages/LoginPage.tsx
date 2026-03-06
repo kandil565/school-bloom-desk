@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { School, Eye, EyeOff, Lock, User, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
+import { apiRequest } from "@/lib/api-config";
 
 const LoginPage = () => {
   const { t, language } = useLanguage();
@@ -18,16 +19,33 @@ const LoginPage = () => {
     setError("");
     setIsLoading(true);
 
-    // Simulate login — replace with real auth later
-    setTimeout(() => {
-      if (email && password) {
+    try {
+      const response = await apiRequest<{ success: boolean; data: { token: string; user: any }; message: string }>(
+        "/auth/login",
+        {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      if (response && response.data && response.data.token) {
         localStorage.setItem("sioms_auth", "true");
+        localStorage.setItem("sioms_token", response.data.token);
+        localStorage.setItem("sioms_user", JSON.stringify(response.data.user));
         navigate("/");
       } else {
-        setError(language === "ar" ? "يرجى إدخال البريد وكلمة المرور" : "Please enter email and password");
+        throw new Error("Invalid response from server");
       }
+    } catch (err: any) {
+      console.error("Login error:", err);
+      setError(
+        language === "ar"
+          ? err.message || "فشل تسجيل الدخول. يرجى التحقق من البيانات."
+          : err.message || "Login failed. Please check your credentials."
+      );
+    } finally {
       setIsLoading(false);
-    }, 800);
+    }
   };
 
   return (

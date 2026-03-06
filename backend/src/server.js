@@ -32,6 +32,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+import { seedDatabase } from './utils/seedData.js';
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/students', studentRoutes);
@@ -46,6 +48,16 @@ app.use('/api/grades', gradeRoutes);
 app.use('/api/library', libraryRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/events', eventRoutes);
+
+// Database seed endpoint (temporary for setup)
+app.get('/api/seed', async (req, res) => {
+  try {
+    const result = await seedDatabase();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

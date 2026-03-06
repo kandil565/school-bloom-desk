@@ -2,6 +2,8 @@ import { GraduationCap, Search, Filter, Plus, Download } from "lucide-react";
 import { PageHeader, DataTable, SummaryCard } from "@/components/PageShared";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/api-config";
 
 const cols = [
     { key: "rollNumber", label: "rollNumber" },
@@ -28,6 +30,13 @@ const students = [
 const StudentManagement = () => {
     const { t } = useLanguage();
     const [searchTerm, setSearchTerm] = useState("");
+
+    const { data: apiResponse, isLoading, error } = useQuery({
+        queryKey: ["students"],
+        queryFn: () => apiRequest<{ success: boolean; data: any[] }>("/students"),
+    });
+
+    const studentData = apiResponse?.data || [];
 
     return (
         <main className="flex flex-col gap-6 md:gap-8 w-full students-portal-view pb-10">
@@ -71,10 +80,23 @@ const StudentManagement = () => {
             </div>
 
             <section className="mb-8 overflow-hidden">
-                <DataTable
-                    columns={cols}
-                    data={students.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase()) || s.rollNumber.includes(searchTerm))}
-                />
+                {isLoading ? (
+                    <div className="flex items-center justify-center p-20">
+                        <div className="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+                    </div>
+                ) : error ? (
+                    <div className="p-8 text-center text-destructive bg-destructive/10 rounded-xl">
+                        {t("errorLoadingData")}
+                    </div>
+                ) : (
+                    <DataTable
+                        columns={cols}
+                        data={studentData.filter(s => 
+                            (s.name?.toLowerCase().includes(searchTerm.toLowerCase())) || 
+                            (s.rollNumber?.includes(searchTerm))
+                        )}
+                    />
+                )}
             </section>
         </main>
     );
