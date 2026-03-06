@@ -1,0 +1,19 @@
+import express from 'express';
+import {
+  getAllAssets,
+  getAssetById,
+  createAsset,
+  updateAsset,
+  deleteAsset,
+} from '../controllers/assetController.js';
+import { authMiddleware } from '../middleware/auth.js';
+
+const router = express.Router();
+
+router.get('/', authMiddleware, getAllAssets);
+router.get('/:id', authMiddleware, getAssetById);
+router.post('/', authMiddleware, createAsset);
+router.put('/:id', authMiddleware, updateAsset);
+router.delete('/:id', authMiddleware, deleteAsset);
+
+export default router;
