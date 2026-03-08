@@ -10,9 +10,19 @@ dotenv.config();
 
 export const seedDatabase = async () => {
     try {
+        console.log('🌱 Seed starting...');
+        console.log('MongoDB URI:', process.env.MONGODB_URI?.substring(0, 50) + '...');
+        
+        if (!process.env.MONGODB_URI) {
+            throw new Error('MONGODB_URI environment variable is not set');
+        }
+
         console.log('⏳ Connecting to database...');
-        // We don't connect here if called from server.js which already connected
-        const dbStatus = await connectDB();
+        const conn = await connectDB();
+
+        if (!conn) {
+            throw new Error('Failed to connect to database');
+        }
 
         console.log('🧹 Clearing existing data...');
         await User.deleteMany({});

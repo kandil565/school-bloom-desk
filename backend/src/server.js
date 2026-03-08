@@ -29,8 +29,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to database
-connectDB();
+// Connect to database (non-blocking on Vercel)
+connectDB().catch(err => {
+  console.error('Initial DB connection warning:', err.message);
+  if (process.env.VERCEL) {
+    console.log('On Vercel: continuing without initial connection');
+  }
+});
 
 // Middleware
 app.use(cors({
@@ -66,20 +71,34 @@ app.use('/api/transportation', transportationRoutes);
 // Database seed endpoint (temporary for setup)
 app.get('/api/seed', async (req, res) => {
   try {
-    console.log('🌱 Seed endpoint called');
+    console.log('\n=== SEED ENDPOINT CALLED ===');
+    console.log('Timestamp:', new Date().toISOString());
     console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
-    console.log('MONGODB_URI length:', process.env.MONGODB_URI?.length);
+    console.log('MONGODB_URI type:', typeof process.env.MONGODB_URI);
     
+    if (process.env.MONGODB_URI) {
+      console.log('MONGODB_URI length:', process.env.MONGODB_URI.length);
+      console.log('URI starts with:', process.env.MONGODB_URI.substring(0, 30));
+    }
+    
+    console.log('Starting seed...');
     const result = await seedDatabase();
     console.log('✅ Seed successful');
+    console.log('=== SEED COMPLETE ===\n');
+    
     res.status(200).json(result);
   } catch (error) {
-    console.error('❌ Seed error:', error.message);
-    console.error('Error details:', error);
+    console.error('=== SEED ERROR ===');
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    console.error('=== END ERROR ===\n');
+    
     res.status(500).json({ 
       success: false, 
       message: error.message,
-      details: error.toString()
+      error: error.name,
+      mongodbUri: process.env.MONGODB_URI ? 'SET' : 'NOT SET'
     });
   }
 });
