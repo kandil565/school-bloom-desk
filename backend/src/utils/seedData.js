@@ -28,16 +28,16 @@ export const seedDatabase = async () => {
 
         console.log('🧹 Clearing existing data...');
         try {
-            await Promise.all([
-                User.deleteMany({}).maxTimeMS(30000),
-                Student.deleteMany({}).maxTimeMS(30000),
-                Employee.deleteMany({}).maxTimeMS(30000),
-                Attendance.deleteMany({}).maxTimeMS(30000),
-                Fee.deleteMany({}).maxTimeMS(30000),
-            ]);
+            // Using deleteMany without callbacks
+            await User.deleteMany({});
+            await Student.deleteMany({});
+            await Employee.deleteMany({});
+            await Attendance.deleteMany({});
+            await Fee.deleteMany({});
             console.log('✅ Data cleared');
         } catch (clearError) {
-            console.warn('⚠️ Clear error (continuing anyway):', clearError.message);
+            console.warn('⚠️ Clear warning:', clearError.message);
+            // Continue anyway
         }
 
         // Create admin user
