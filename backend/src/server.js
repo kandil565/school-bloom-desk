@@ -35,26 +35,29 @@ const dbPromise = connectDB().catch(err => {
   console.error('Initial DB connection warning:', err.message);
 });
 
-// Middleware to ensure DB is connected before handling requests
-app.use(async (req, res, next) => {
-  try {
-    if (mongoose.connection.readyState !== 1) {
-      await dbPromise;
-    }
-    next();
-  } catch (err) {
-    res.status(500).json({ success: false, statusCode: 500, message: "Database connection failed" });
-  }
-});
-
-// Middleware
+// Middleware (CORS FIRST)
 app.use(cors({
-  origin: '*', // Allow all origins for easier deployment, restrict this in a real prod environment
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware to ensure DB is connected before handling requests
+app.use(async (req, res, next) => {
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      await Promise.race([
+        dbPromise,
+        new Promise((_, reject) => setTimeout(() => reject(new Error('DB connection timeout')), 20000))
+      ]);
+    }
+    next();
+  } catch (err) {
+    res.status(500).json({ success: false, statusCode: 500, message: 'Database connection failed: ' + err.message });
+  }
+});
 
 // Database seed endpoint - MUST be before routes to avoid middleware issues
 const seedRouter = express.Router();
