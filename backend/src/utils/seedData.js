@@ -67,7 +67,7 @@ export const seedDatabase = async () => {
                 firstName: 'Fatima',
                 lastName: 'Mohammed',
                 email: 'fatima@school.com',
-                position: 'Teacher',,
+                position: 'Teacher',
                 department: 'Academic',
                 employmentType: 'Full-time',
                 dateOfJoining: new Date('2021-03-20'),
@@ -101,7 +101,7 @@ export const seedDatabase = async () => {
                 section: 'B',
                 parentName: 'Hassan Mohammed',
                 parentEmail: 'parent2@gmail.com',
-                admissionDate: new Date('2020-09-01'),,
+                admissionDate: new Date('2020-09-01'),
             },
         ]);
 
