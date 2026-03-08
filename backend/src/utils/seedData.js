@@ -17,19 +17,28 @@ export const seedDatabase = async () => {
             throw new Error('MONGODB_URI environment variable is not set');
         }
 
-        console.log('⏳ Connecting to database...');
+        console.log('⏳ Connecting to database (with extended timeout)...');
         const conn = await connectDB();
 
         if (!conn) {
             throw new Error('Failed to connect to database');
         }
 
+        console.log('✅ Connected, preparing to clear data...');
+
         console.log('🧹 Clearing existing data...');
-        await User.deleteMany({});
-        await Student.deleteMany({});
-        await Employee.deleteMany({});
-        await Attendance.deleteMany({});
-        await Fee.deleteMany({});
+        try {
+            await Promise.all([
+                User.deleteMany({}).maxTimeMS(30000),
+                Student.deleteMany({}).maxTimeMS(30000),
+                Employee.deleteMany({}).maxTimeMS(30000),
+                Attendance.deleteMany({}).maxTimeMS(30000),
+                Fee.deleteMany({}).maxTimeMS(30000),
+            ]);
+            console.log('✅ Data cleared');
+        } catch (clearError) {
+            console.warn('⚠️ Clear error (continuing anyway):', clearError.message);
+        }
 
         // Create admin user
         console.log('👤 Creating admin user...');

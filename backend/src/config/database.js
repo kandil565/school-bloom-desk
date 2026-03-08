@@ -13,16 +13,31 @@ const connectDB = async () => {
     }
 
     const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 10000,
-      connectTimeoutMS: 10000,
+      serverSelectionTimeoutMS: 15000,
+      connectTimeoutMS: 15000,
+      socketTimeoutMS: 45000,
+      maxPoolSize: 10,
+      minPoolSize: 2,
     });
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
     return conn;
   } catch (error) {
     console.error(`❌ Error connecting to MongoDB: ${error.message}`);
     if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
-      console.error('Running in production/Vercel, but continuing...');
-      return null;
+      console.error('Running in production/Vercel, retrying...');
+      // Retry once on Vercel
+      try {
+        const retryConn = await mongoose.connect(process.env.MONGODB_URI, {
+          serverSelectionTimeoutMS: 20000,
+          connectTimeoutMS: 20000,
+          socketTimeoutMS: 60000,
+        });
+        console.log('✅ Retry successful');
+        return retryConn;
+      } catch (retryError) {
+        console.error('Retry failed:', retryError.message);
+        return null;
+      }
     }
     process.exit(1);
   }
