@@ -17,8 +17,8 @@ export default function Analytics() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">82.5%</div>
-            <p className="text-xs text-green-500">↑ 5.2% من الشهر الماضي</p>
+            <div className="text-2xl font-bold">0%</div>
+            <p className="text-xs text-muted-foreground">-</p>
           </CardContent>
         </Card>
         <Card>
@@ -26,8 +26,8 @@ export default function Analytics() {
             <CardTitle className="text-sm font-medium">{t("attendanceRate")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">94.8%</div>
-            <p className="text-xs text-green-500">↑ 2.1% من الشهر الماضي</p>
+            <div className="text-2xl font-bold">0%</div>
+            <p className="text-xs text-muted-foreground">-</p>
           </CardContent>
         </Card>
         <Card>
@@ -35,8 +35,8 @@ export default function Analytics() {
             <CardTitle className="text-sm font-medium">{t("parentSatisfaction")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">91.3%</div>
-            <p className="text-xs text-green-500">↑ 3.4% من العام الماضي</p>
+            <div className="text-2xl font-bold">0%</div>
+            <p className="text-xs text-muted-foreground">-</p>
           </CardContent>
         </Card>
         <Card>
@@ -44,8 +44,8 @@ export default function Analytics() {
             <CardTitle className="text-sm font-medium">{t("overallGrowth")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+12.5%</div>
-            <p className="text-xs text-blue-500">مقارنة بالعام السابق</p>
+            <div className="text-2xl font-bold">0%</div>
+            <p className="text-xs text-muted-foreground">-</p>
           </CardContent>
         </Card>
       </div>
@@ -63,28 +63,28 @@ export default function Analytics() {
               <div>
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-sm">الفترة الأولى</span>
-                  <span className="text-sm font-semibold">78%</span>
+                  <span className="text-sm font-semibold">0%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-blue-500 h-2 rounded-full" style={{ width: "78%" }}></div>
+                  <div className="bg-blue-500 h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-sm">الفترة الثانية</span>
-                  <span className="text-sm font-semibold">85%</span>
+                  <span className="text-sm font-semibold">0%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-green-500 h-2 rounded-full" style={{ width: "85%" }}></div>
+                  <div className="bg-green-500 h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between items-center mb-1">
                   <span className="text-sm">الفترة الثالثة</span>
-                  <span className="text-sm font-semibold">89%</span>
+                  <span className="text-sm font-semibold">0%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-emerald-500 h-2 rounded-full" style={{ width: "89%" }}></div>
+                  <div className="bg-emerald-500 h-2 rounded-full" style={{ width: "0%" }}></div>
                 </div>
               </div>
             </div>
@@ -103,19 +103,19 @@ export default function Analytics() {
               <div>
                 <div className="flex justify-between text-sm mb-1">
                   <span>{t("grade")} {t("primary")}</span>
-                  <span className="font-semibold">450</span>
+                  <span className="font-semibold">0</span>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
                   <span>{t("grade")} {t("preparatory")}</span>
-                  <span className="font-semibold">380</span>
+                  <span className="font-semibold">0</span>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
                   <span>{t("grade")} {t("secondary")}</span>
-                  <span className="font-semibold">420</span>
+                  <span className="font-semibold">0</span>
                 </div>
               </div>
             </div>
@@ -133,15 +133,15 @@ export default function Analytics() {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-3">
             <div className="text-center border rounded-lg p-4">
-              <div className="text-3xl font-bold text-blue-600">1,250</div>
+              <div className="text-3xl font-bold text-blue-600">0</div>
               <p className="text-sm text-gray-600 mt-2">{t("totalStudents")}</p>
             </div>
             <div className="text-center border rounded-lg p-4">
-              <div className="text-3xl font-bold text-green-600">85</div>
+              <div className="text-3xl font-bold text-green-600">0</div>
               <p className="text-sm text-gray-600 mt-2">{t("totalEmployees")}</p>
             </div>
             <div className="text-center border rounded-lg p-4">
-              <div className="text-3xl font-bold text-purple-600">4.5/5</div>
+              <div className="text-3xl font-bold text-purple-600">0/5</div>
               <p className="text-sm text-gray-600 mt-2">{t("averageRating")}</p>
             </div>
           </div>

@@ -30,10 +30,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['HR', 'Finance', 'Operations', 'IT', 'Academic', 'Admin'],
     },
-    phone: {
-      type: String,
-      match: [/^[0-9]{10,14}$/, 'Please provide a valid phone number'],
-    },
     avatar: {
       type: String,
       default: null,

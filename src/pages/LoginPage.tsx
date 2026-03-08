@@ -32,7 +32,15 @@ const LoginPage = () => {
         localStorage.setItem("sioms_auth", "true");
         localStorage.setItem("sioms_token", response.data.token);
         localStorage.setItem("sioms_user", JSON.stringify(response.data.user));
-        navigate("/");
+        
+        const userRole = response.data.user.role;
+        if (userRole === "teacher") {
+          navigate("/students");
+        } else if (userRole === "staff") {
+          navigate("/hr");
+        } else {
+          navigate("/");
+        }
       } else {
         throw new Error("Invalid response from server");
       }
@@ -125,7 +133,7 @@ const LoginPage = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={language === "ar" ? "admin@sioms.edu" : "admin@sioms.edu"}
+                  placeholder="your.email@school.com"
                   className="w-full h-12 ps-10 pe-4 rounded-xl bg-muted border border-border text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all duration-200"
                 />
               </div>

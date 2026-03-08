@@ -1,4 +1,4 @@
-import { User, Mail, Phone, MapPin, Building, Calendar, ShieldCheck, BadgeCheck } from "lucide-react";
+import { User, Mail, MapPin, Building, Calendar, ShieldCheck, BadgeCheck } from "lucide-react";
 import { PageHeader } from "@/components/PageShared";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
@@ -9,7 +9,6 @@ const ProfilePage = () => {
   const profileFields = [
     { label: "fullName", value: t("adminTitle"), icon: User },
     { label: "email", value: "admin@sioms.edu", icon: Mail },
-    { label: "phone", value: "+20 10 1234 5678", icon: Phone },
     { label: "department", value: t("adminDept"), icon: Building },
     { label: "location", value: t("cairoEgypt"), icon: MapPin },
     { label: "joinDate", value: language === "ar" ? "15 يناير 2020" : "Jan 15, 2020", icon: Calendar },
@@ -47,12 +46,6 @@ const ProfilePage = () => {
                 <Mail className="w-4 h-4" />
               </div>
               <span className="truncate">admin@sioms.edu</span>
-            </div>
-            <div className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors justify-start">
-              <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
-                <Phone className="w-4 h-4" />
-              </div>
-              <span>+20 10 1234 5678</span>
             </div>
           </div>
         </div>

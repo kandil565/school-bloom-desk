@@ -2,6 +2,7 @@ import { FileBarChart, Download, Calendar, ArrowRight, FileText, PieChart, LineC
 import { PageHeader, SummaryCard } from "@/components/PageShared";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
 
 const reports = [
   { title: "attendanceReport", description: "attendanceReportDesc", date: "Feb 28, 2024", icon: FileText, color: "text-blue-500 bg-blue-50" },
@@ -14,16 +15,17 @@ const reports = [
 
 const Reports = () => {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
 
   return (
     <div className="space-y-8 pb-10">
       <PageHeader icon={FileBarChart} title="reports" description="reportsDescription" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-        <SummaryCard label="totalReports" value="42" color="bg-primary" />
-        <SummaryCard label="thisMonth" value="8" color="bg-success" />
-        <SummaryCard label="scheduled" value="5" color="bg-accent" />
-        <SummaryCard label="pendingReview" value="3" color="bg-destructive" />
+        <SummaryCard label="totalReports" value="0" color="bg-primary" />
+        <SummaryCard label="thisMonth" value="0" color="bg-success" />
+        <SummaryCard label="scheduled" value="0" color="bg-accent" />
+        <SummaryCard label="pendingReview" value="0" color="bg-destructive" />
       </div>
 
       <section>
@@ -69,7 +71,10 @@ const Reports = () => {
                     <span>{t("generated")}: {report.date}</span>
                   </div>
 
-                  <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-all">
+                  <button 
+                    className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-all"
+                    onClick={() => toast({ title: "Downloading Report", description: "Your report is being generated and will download shortly." })}
+                  >
                     <Download className="w-4 h-4" />
                   </button>
                 </div>
@@ -99,7 +104,10 @@ const Reports = () => {
           </p>
         </div>
 
-        <button className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold text-sm shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all relative z-10 whitespace-nowrap">
+        <button 
+          className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold text-sm shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all relative z-10 whitespace-nowrap"
+          onClick={() => toast({ title: "Started", description: "Automated schedule successfully enabled." })}
+        >
           {t("startScheduling")}
         </button>
       </div>

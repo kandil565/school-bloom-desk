@@ -101,10 +101,10 @@ export const getCurrentUser = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    const { name, phone, avatar } = req.body;
+    const { name, avatar } = req.body;
     const user = await User.findByIdAndUpdate(
       req.user.id,
-      { name, phone, avatar },
+      { name, avatar },
       { new: true, runValidators: true }
     );
 

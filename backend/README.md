@@ -219,13 +219,13 @@ The API uses JWT (JSON Web Tokens) for authentication. To access protected endpo
 ## Database Models
 
 ### User Model
-- name, email, password, role, department, phone, avatar, isActive, lastLogin
+- name, email, password, role, department, avatar, isActive, lastLogin
 
 ### Student Model
-- rollNumber, firstName, lastName, dateOfBirth, gender, email, phone, grade, section, parentDetails, address, admissionDate
+- rollNumber, firstName, lastName, dateOfBirth, gender, email, grade, section, parentDetails, address, admissionDate
 
 ### Employee Model
-- employeeId, firstName, lastName, email, phone, position, department, employmentType, dateOfJoining, salary, bankAccount, address
+- employeeId, firstName, lastName, email, position, department, employmentType, dateOfJoining, salary, bankAccount, address
 
 ### Attendance Model
 - employeeId, date, status, checkInTime, checkOutTime, remarks

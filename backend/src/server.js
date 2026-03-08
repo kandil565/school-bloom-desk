@@ -18,6 +18,11 @@ import gradeRoutes from './routes/gradeRoutes.js';
 import libraryRoutes from './routes/libraryRoutes.js';
 import assetRoutes from './routes/assetRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
+import canteenRoutes from './routes/canteenRoutes.js';
+import supplierRoutes from './routes/supplierRoutes.js';
+import workshopRoutes from './routes/workshopRoutes.js';
+import curriculumRoutes from './routes/curriculumRoutes.js';
+import transportationRoutes from './routes/transportationRoutes.js';
 
 dotenv.config();
 
@@ -28,7 +33,11 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow all origins for easier deployment, restrict this in a real prod environment
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -48,6 +57,11 @@ app.use('/api/grades', gradeRoutes);
 app.use('/api/library', libraryRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/canteen', canteenRoutes);
+app.use('/api/suppliers', supplierRoutes);
+app.use('/api/workshops', workshopRoutes);
+app.use('/api/curriculum', curriculumRoutes);
+app.use('/api/transportation', transportationRoutes);
 
 // Database seed endpoint (temporary for setup)
 app.get('/api/seed', async (req, res) => {
@@ -68,10 +82,12 @@ app.get('/api/health', (req, res) => {
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+// Start server only if not in serverless environment
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
 
 export default app;

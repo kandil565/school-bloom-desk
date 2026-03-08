@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import Sidebar from "@/components/Sidebar";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import Sidebar, { menuItems, getUserRole } from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -10,12 +10,38 @@ const DashboardLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useIsMobile();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if user is authenticated
+    const auth = localStorage.getItem("sioms_auth");
+    if (!auth) {
+      navigate("/login");
+      return;
+    }
+
+    // Role-based route protection
+    const role = getUserRole();
+    const currentPath = location.pathname;
+    const allowedItem = menuItems.find(item => item.path === currentPath);
+    
+    // Allow paths not in menuItems (like /profile, /settings, etc.) OR if role is allowed
+    // Note: If you want to strictly block unknown paths, you can change the logic here.
+    if (allowedItem && !allowedItem.roles.includes(role)) {
+      // Redirect to a safe default path for the user's role
+      if (role === "teacher") {
+        navigate("/students");
+      } else if (role === "staff") {
+        navigate("/hr");
+      } else {
+        navigate("/");
+      }
+    }
+
     if (isMobile) {
       setMobileOpen(false);
     }
-  }, [location.pathname, isMobile]);
+  }, [location.pathname, isMobile, navigate]);
 
   useEffect(() => {
     if (isMobile) {

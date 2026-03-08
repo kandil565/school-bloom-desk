@@ -2,6 +2,42 @@
  * Database Utilities and Constants
  */
 
+/**
+ * User Roles with Clear Distinctions:
+ * 
+ * ADMIN: System Administrator
+ * - Full access to all features across the system
+ * - Can manage users, roles, permissions, and system settings
+ * - Can access and generate reports, analytics, and advanced features
+ * - Can approve/deny all system-level requests
+ * 
+ * TEACHER: Academic/Educational Staff
+ * - Access to student academic records, grades, and attendance
+ * - Can manage curriculum, class schedules, and academic activities
+ * - Can assign and mark grades, track student progress
+ * - Cannot access payroll, HR management, or financial operations
+ * - Cannot manage system settings or user accounts
+ * 
+ * STAFF: Administrative/Operational Staff
+ * - Access to HR management, payroll, and employee records
+ * - Can manage inventory, assets, suppliers, and procurement
+ * - Can handle financial operations (fees, invoices, payments)
+ * - Limited access to academic information
+ * - Cannot make system-level administrative changes
+ * - Cannot manage other admin users
+ * 
+ * PARENT: Parent/Guardian (Limited Access)
+ * - Read-only access to their child's academic information
+ * - Can view grades, attendance, and fees
+ * - Can communicate with teachers through parent portal
+ * - Cannot access any administrative, payroll, or employee data
+ * 
+ * STUDENT: Student (Limited Access)
+ * - Read-only access to personal academic information
+ * - Can view personal grades and class schedule
+ * - Can access library catalog
+ * - Cannot access other students' information or administrative data
+ */
 export const USER_ROLES = {
   ADMIN: 'admin',
   TEACHER: 'teacher',
@@ -151,17 +187,8 @@ export const isValidEmail = (email) => {
 };
 
 /**
- * Validate phone number
+ * Validate password strength
  */
-export const isValidPhone = (phone) => {
-  const phoneRegex = /^[0-9]{10,14}$/;
-  return phoneRegex.test(phone);
-};
-
-/**
- * Validate Egyptian phone number
- */
-export const isValidEgyptianPhone = (phone) => {
-  const egyptianPhoneRegex = /^(01)[0-9]{9}$/;
-  return egyptianPhoneRegex.test(phone);
+export const isValidPassword = (password) => {
+  return password && password.length >= 6;
 };

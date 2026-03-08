@@ -30,10 +30,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
 
 const stats = [
-  { icon: Users, label: "totalEmployees", value: "248", change: "+12%", changeType: "up" as const, color: "primary" as const },
-  { icon: UserCheck, label: "todayAttendance", value: "213", change: "85.8%", changeType: "up" as const, color: "success" as const },
-  { icon: AlertTriangle, label: "inventoryAlerts", value: "7", change: "+3", changeType: "down" as const, color: "accent" as const },
-  { icon: DollarSign, label: "monthlyExpenses", value: "2,450,230 ج.م", change: "-2.4%", changeType: "up" as const, color: "destructive" as const },
+  { icon: Users, label: "totalEmployees", value: "0", change: "0%", changeType: "up" as const, color: "primary" as const },
+  { icon: UserCheck, label: "todayAttendance", value: "0", change: "0%", changeType: "up" as const, color: "success" as const },
+  { icon: AlertTriangle, label: "inventoryAlerts", value: "0", change: "0", changeType: "down" as const, color: "accent" as const },
+  { icon: DollarSign, label: "monthlyExpenses", value: "0", change: "0%", changeType: "up" as const, color: "destructive" as const },
 ];
 
 const quickActions = [
@@ -44,13 +44,13 @@ const quickActions = [
 ];
 
 const attendanceData = [
-  { name: 'Sun', value: 400 },
-  { name: 'Mon', value: 300 },
-  { name: 'Tue', value: 500 },
-  { name: 'Wed', value: 450 },
-  { name: 'Thu', value: 470 },
-  { name: 'Fri', value: 90 },
-  { name: 'Sat', value: 120 },
+  { name: 'Sun', value: 0 },
+  { name: 'Mon', value: 0 },
+  { name: 'Tue', value: 0 },
+  { name: 'Wed', value: 0 },
+  { name: 'Thu', value: 0 },
+  { name: 'Fri', value: 0 },
+  { name: 'Sat', value: 0 },
 ];
 
 const DashboardHome = () => {

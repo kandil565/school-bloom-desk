@@ -19,7 +19,6 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
-    phone: String,
     dateOfBirth: Date,
     gender: {
       type: String,
@@ -41,8 +40,6 @@ const employeeSchema = new mongoose.Schema(
     city: String,
     state: String,
     postalCode: String,
-    emergencyContact: String,
-    emergencyPhone: String,
     isActive: {
       type: Boolean,
       default: true,

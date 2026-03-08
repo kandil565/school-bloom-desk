@@ -9,7 +9,6 @@ const complaintSchema = new mongoose.Schema(
     },
     complainantName: String,
     complainantEmail: String,
-    complainantPhone: String,
     category: {
       type: String,
       enum: ['Academic', 'Facility', 'Staff', 'Transport', 'Food', 'Other'],

@@ -30,30 +30,30 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const menuItems = [
-  { icon: LayoutDashboard, labelKey: "dashboard", path: "/" },
-  { icon: Users, labelKey: "hr", path: "/hr" },
-  { icon: GraduationCap, labelKey: "students", path: "/students" },
-  { icon: UserCheck, labelKey: "attendance", path: "/attendance" },
-  { icon: Wallet, labelKey: "payroll", path: "/payroll" },
-  { icon: UtensilsCrossed, labelKey: "canteen", path: "/canteen" },
-  { icon: Package, labelKey: "inventory", path: "/inventory" },
-  { icon: Truck, labelKey: "suppliers", path: "/suppliers" },
-  { icon: Wrench, labelKey: "workshops", path: "/workshops" },
-  { icon: Shield, labelKey: "assets", path: "/assets" },
-  { icon: FileBarChart, labelKey: "reports", path: "/reports" },
-  { icon: BookOpen, labelKey: "curriculum", path: "/curriculum" },
-  { icon: PieChart, labelKey: "grades", path: "/grades" },
-  { icon: Archive, labelKey: "library", path: "/library" },
-  { icon: Bus, labelKey: "transportation", path: "/transportation" },
-  { icon: MessageSquare, labelKey: "parent_portal", path: "/parent-portal" },
-  { icon: Bell, labelKey: "notifications", path: "/notifications" },
-  { icon: TrendingUp, labelKey: "advanced_reports", path: "/advanced-reports" },
-  { icon: Calendar, labelKey: "events", path: "/events" },
-  { icon: AlertCircle, labelKey: "complaints", path: "/complaints" },
-  { icon: DollarSign, labelKey: "fees", path: "/fees" },
-  { icon: Archive, labelKey: "archive", path: "/archive" },
-  { icon: TrendingUp, labelKey: "analytics", path: "/analytics" },
+export const menuItems = [
+  { icon: LayoutDashboard, labelKey: "dashboard", path: "/", roles: ["admin"] },
+  { icon: Users, labelKey: "hr", path: "/hr", roles: ["admin", "staff"] },
+  { icon: GraduationCap, labelKey: "students", path: "/students", roles: ["admin", "teacher", "staff"] },
+  { icon: UserCheck, labelKey: "attendance", path: "/attendance", roles: ["admin", "teacher", "staff"] },
+  { icon: Wallet, labelKey: "payroll", path: "/payroll", roles: ["admin", "staff"] },
+  { icon: UtensilsCrossed, labelKey: "canteen", path: "/canteen", roles: ["admin", "staff"] },
+  { icon: Package, labelKey: "inventory", path: "/inventory", roles: ["admin", "staff"] },
+  { icon: Truck, labelKey: "suppliers", path: "/suppliers", roles: ["admin", "staff"] },
+  { icon: Wrench, labelKey: "workshops", path: "/workshops", roles: ["admin", "staff"] },
+  { icon: Shield, labelKey: "assets", path: "/assets", roles: ["admin", "staff"] },
+  { icon: FileBarChart, labelKey: "reports", path: "/reports", roles: ["admin"] },
+  { icon: BookOpen, labelKey: "curriculum", path: "/curriculum", roles: ["admin", "teacher"] },
+  { icon: PieChart, labelKey: "grades", path: "/grades", roles: ["admin", "teacher"] },
+  { icon: Archive, labelKey: "library", path: "/library", roles: ["admin", "teacher", "staff"] },
+  { icon: Bus, labelKey: "transportation", path: "/transportation", roles: ["admin", "staff"] },
+  { icon: MessageSquare, labelKey: "parent_portal", path: "/parent-portal", roles: ["admin", "teacher"] },
+  { icon: Bell, labelKey: "notifications", path: "/notifications", roles: ["admin", "teacher", "staff"] },
+  { icon: TrendingUp, labelKey: "advanced_reports", path: "/advanced-reports", roles: ["admin"] },
+  { icon: Calendar, labelKey: "events", path: "/events", roles: ["admin", "teacher", "staff"] },
+  { icon: AlertCircle, labelKey: "complaints", path: "/complaints", roles: ["admin", "teacher", "staff"] },
+  { icon: DollarSign, labelKey: "fees", path: "/fees", roles: ["admin", "staff"] },
+  { icon: Archive, labelKey: "archive", path: "/archive", roles: ["admin"] },
+  { icon: TrendingUp, labelKey: "analytics", path: "/analytics", roles: ["admin"] },
 ];
 
 interface SidebarProps {
@@ -62,6 +62,19 @@ interface SidebarProps {
   mobileOpen?: boolean;
 }
 
+export const getUserRole = () => {
+  try {
+    const userStr = localStorage.getItem("sioms_user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      return user.role || "admin";
+    }
+  } catch (e) {
+    console.error("Error parsing user data");
+  }
+  return "admin"; // default to admin if not found or parsing fails
+};
+
 const Sidebar = ({ collapsed, onToggle, mobileOpen }: SidebarProps) => {
   const { t, language } = useLanguage();
   const location = useLocation();
@@ -69,6 +82,7 @@ const Sidebar = ({ collapsed, onToggle, mobileOpen }: SidebarProps) => {
   const isMobileMode = mobileOpen !== undefined;
 
   const isRTL = language === "ar";
+  const userRole = getUserRole();
 
   const sidebarClasses = cn(
     "fixed top-0 h-screen bg-secondary shadow-sidebar z-[70] flex flex-col transition-all duration-300 ease-in-out",
@@ -125,7 +139,7 @@ const Sidebar = ({ collapsed, onToggle, mobileOpen }: SidebarProps) => {
 
       {/* Navigation */}
       <nav className="flex-1 py-2 px-2 space-y-0.5 overflow-y-auto">
-        {menuItems.map((item) => {
+        {menuItems.filter(item => item.roles.includes(userRole)).map((item) => {
           const Icon = item.icon;
           const isActive = location.pathname === item.path;
           return (
