@@ -43,7 +43,7 @@ export const login = async (req, res) => {
 
     return res.status(200).json(new ApiResponse(200, response, 'Login successful'));
   } catch (error) {
-    return res.status(500).json(new ApiError(500, error.message));
+    return res.status(500).json({ success: false, statusCode: 500, message: error.message });
   }
 };
 
@@ -82,7 +82,7 @@ export const register = async (req, res) => {
 
     return res.status(201).json(new ApiResponse(201, response, 'User registered successfully'));
   } catch (error) {
-    return res.status(500).json(new ApiError(500, error.message));
+    return res.status(500).json({ success: false, statusCode: 500, message: error.message });
   }
 };
 
@@ -95,7 +95,7 @@ export const getCurrentUser = async (req, res) => {
 
     return res.status(200).json(new ApiResponse(200, user, 'User retrieved successfully'));
   } catch (error) {
-    return res.status(500).json(new ApiError(500, error.message));
+    return res.status(500).json({ success: false, statusCode: 500, message: error.message });
   }
 };
 
@@ -110,6 +110,6 @@ export const updateProfile = async (req, res) => {
 
     return res.status(200).json(new ApiResponse(200, user, 'Profile updated successfully'));
   } catch (error) {
-    return res.status(500).json(new ApiError(500, error.message));
+    return res.status(500).json({ success: false, statusCode: 500, message: error.message });
   }
 };
