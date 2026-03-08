@@ -45,8 +45,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/auth', authRoutes);
-
 
 // Database seed endpoint - MUST be before routes to avoid middleware issues
 const seedRouter = express.Router();
@@ -68,6 +66,9 @@ healthRouter.get('/', (req, res) => {
 });
 
 app.use('/api/health', healthRouter);
+
+// API Routes
+app.use('/api/auth', authRoutes);
 
 // 404 handler (must be after all routes)
 app.use((req, res) => {
