@@ -46,23 +46,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
-app.use('/api/students', studentRoutes);
-app.use('/api/employees', employeeRoutes);
-app.use('/api/attendance', attendanceRoutes);
-app.use('/api/fees', feeRoutes);
-app.use('/api/payroll', payrollRoutes);
-app.use('/api/inventory', inventoryRoutes);
-app.use('/api/complaints', complaintRoutes);
-app.use('/api/notifications', notificationRoutes);
-app.use('/api/grades', gradeRoutes);
-app.use('/api/library', libraryRoutes);
-app.use('/api/assets', assetRoutes);
-app.use('/api/events', eventRoutes);
-app.use('/api/canteen', canteenRoutes);
-app.use('/api/suppliers', supplierRoutes);
-app.use('/api/workshops', workshopRoutes);
-app.use('/api/curriculum', curriculumRoutes);
-app.use('/api/transportation', transportationRoutes);
+
 
 // Database seed endpoint - MUST be before routes to avoid middleware issues
 const seedRouter = express.Router();
