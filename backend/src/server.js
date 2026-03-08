@@ -66,10 +66,21 @@ app.use('/api/transportation', transportationRoutes);
 // Database seed endpoint (temporary for setup)
 app.get('/api/seed', async (req, res) => {
   try {
+    console.log('🌱 Seed endpoint called');
+    console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
+    console.log('MONGODB_URI length:', process.env.MONGODB_URI?.length);
+    
     const result = await seedDatabase();
+    console.log('✅ Seed successful');
     res.status(200).json(result);
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    console.error('❌ Seed error:', error.message);
+    console.error('Error details:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message,
+      details: error.toString()
+    });
   }
 });
 
