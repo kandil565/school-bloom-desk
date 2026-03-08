@@ -70,32 +70,14 @@ app.use('/api/transportation', transportationRoutes);
 // Database seed endpoint (temporary for setup)
 app.get('/api/seed', async (req, res) => {
   try {
-    console.log('\n=== SEED ENDPOINT ===');
-    console.log('Timestamp:', new Date().toISOString());
-    console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
-    
-    if (process.env.MONGODB_URI) {
-      console.log('MONGODB_URI length:', process.env.MONGODB_URI.length);
-    }
-    
-    console.log('Calling seedDatabase()...');
+    console.log('🌱 Seed endpoint called');
     const result = await seedDatabase();
-    console.log('✅ Seed successful');
-    console.log('=== SEED END ===\n');
-    
     res.status(200).json(result);
   } catch (error) {
-    console.error('\n=== SEED ERROR ===');
-    console.error('Error type:', error.constructor.name);
-    console.error('Error message:', error.message);
-    console.error('Error stack:', error.stack?.substring(0, 200));
-    console.error('=== SEED ERROR END ===\n');
-    
+    console.error('Seed error:', error.message);
     res.status(500).json({ 
       success: false, 
-      message: error.message || 'Seed failed',
-      error: error.constructor.name,
-      mongodbUri: process.env.MONGODB_URI ? 'SET' : 'NOT SET'
+      message: error.message || 'Seed failed'
     });
   }
 });
@@ -114,8 +96,8 @@ app.use((req, res) => {
 });
 
 // Error handler (must be last)
-app.use((err, req, res, next) => {
-  console.error('Error handler caught:', err.message);
+app.use((err, req, res) => {
+  console.error('Error caught:', err.message);
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
 
@@ -123,7 +105,6 @@ app.use((err, req, res, next) => {
     success: false,
     statusCode,
     message,
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
   });
 });
 
