@@ -69,6 +69,23 @@ app.use('/api/health', healthRouter);
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/employees', employeeRoutes);
+app.use('/api/attendance', attendanceRoutes);
+app.use('/api/fees', feeRoutes);
+app.use('/api/payroll', payrollRoutes);
+app.use('/api/inventory', inventoryRoutes);
+app.use('/api/complaints', complaintRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/grades', gradeRoutes);
+app.use('/api/library', libraryRoutes);
+app.use('/api/assets', assetRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/api/canteen', canteenRoutes);
+app.use('/api/suppliers', supplierRoutes);
+app.use('/api/workshops', workshopRoutes);
+app.use('/api/curriculum', curriculumRoutes);
+app.use('/api/transportation', transportationRoutes);
 
 // 404 handler (must be after all routes)
 app.use((req, res) => {

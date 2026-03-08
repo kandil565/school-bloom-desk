@@ -6,10 +6,24 @@ import { cn } from "@/lib/utils";
 const ProfilePage = () => {
   const { t, language } = useLanguage();
 
+  const getLoggedInUser = () => {
+    try {
+      const userStr = localStorage.getItem("sioms_user");
+      if (userStr) {
+        return JSON.parse(userStr);
+      }
+    } catch (e) {
+      console.error("Error parsing user data", e);
+    }
+    return null;
+  };
+
+  const currentUser = getLoggedInUser();
+
   const profileFields = [
-    { label: "fullName", value: t("adminTitle"), icon: User },
-    { label: "email", value: "admin@sioms.edu", icon: Mail },
-    { label: "department", value: t("adminDept"), icon: Building },
+    { label: "fullName", value: currentUser?.name || t("adminTitle"), icon: User },
+    { label: "email", value: currentUser?.email || "admin@sioms.edu", icon: Mail },
+    { label: "department", value: currentUser?.department || t("adminDept"), icon: Building },
     { label: "location", value: t("cairoEgypt"), icon: MapPin },
     { label: "joinDate", value: language === "ar" ? "15 يناير 2020" : "Jan 15, 2020", icon: Calendar },
   ];
@@ -34,10 +48,10 @@ const ProfilePage = () => {
           </div>
 
           <h3 className="text-xl font-bold text-foreground mb-1">
-            {t("adminTitle")}
+            {currentUser?.name || t("adminTitle")}
           </h3>
           <p className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full inline-block">
-            {t("fullAccess")}
+            {currentUser?.role || t("fullAccess")}
           </p>
 
           <div className="mt-8 w-full pt-6 border-t border-border space-y-4">
@@ -45,7 +59,7 @@ const ProfilePage = () => {
               <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
                 <Mail className="w-4 h-4" />
               </div>
-              <span className="truncate">admin@sioms.edu</span>
+              <span className="truncate">{currentUser?.email || "admin@sioms.edu"}</span>
             </div>
           </div>
         </div>

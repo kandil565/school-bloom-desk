@@ -10,6 +10,8 @@ const SignOutPage = () => {
   const handleSignOut = () => {
     // Clear auth state
     localStorage.removeItem("sioms_auth");
+    localStorage.removeItem("sioms_token");
+    localStorage.removeItem("sioms_user");
     navigate("/login");
   };
 

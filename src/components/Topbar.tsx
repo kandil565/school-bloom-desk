@@ -59,6 +59,19 @@ const Topbar = ({ onMenuClick, showMenu }: TopbarProps) => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  const getLoggedInUser = () => {
+    try {
+      const userStr = localStorage.getItem("sioms_user");
+      if (userStr) {
+        return JSON.parse(userStr);
+      }
+    } catch (e) {
+      console.error("Error parsing user data", e);
+    }
+    return null;
+  };
+  const currentUser = getLoggedInUser();
+
   const handleProfileAction = (key: string) => {
     setShowProfile(false);
     if (key === "profile") navigate("/profile");
@@ -221,9 +234,9 @@ const Topbar = ({ onMenuClick, showMenu }: TopbarProps) => {
                 {/* User info header */}
                 <div className="px-4 py-3 border-b border-border">
                   <p className="text-sm font-bold text-foreground">
-                    {language === "ar" ? "مدير النظام" : "Administrator"}
+                    {currentUser?.name || (language === "ar" ? "المستخدم" : "User")}
                   </p>
-                  <p className="text-[11px] text-muted-foreground">admin@sioms.edu</p>
+                  <p className="text-[11px] text-muted-foreground">{currentUser?.email || "user@sioms.edu"}</p>
                 </div>
                 {["profile", "settings", "signout"].map((key) => (
                   <button
