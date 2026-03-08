@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import connectDB from './config/database.js';
 import { seedDatabase } from './utils/seedData.js';
 
@@ -29,11 +30,20 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to database (non-blocking on Vercel)
-connectDB().catch(err => {
+// Store the db connection promise
+const dbPromise = connectDB().catch(err => {
   console.error('Initial DB connection warning:', err.message);
-  if (process.env.VERCEL) {
-    console.log('On Vercel: continuing without initial connection');
+});
+
+// Middleware to ensure DB is connected before handling requests
+app.use(async (req, res, next) => {
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      await dbPromise;
+    }
+    next();
+  } catch (err) {
+    res.status(500).json({ success: false, statusCode: 500, message: "Database connection failed" });
   }
 });
 
