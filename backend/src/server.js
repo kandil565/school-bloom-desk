@@ -70,33 +70,31 @@ app.use('/api/transportation', transportationRoutes);
 // Database seed endpoint (temporary for setup)
 app.get('/api/seed', async (req, res) => {
   try {
-    console.log('\n=== SEED ENDPOINT CALLED ===');
+    console.log('\n=== SEED ENDPOINT ===');
     console.log('Timestamp:', new Date().toISOString());
     console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
-    console.log('MONGODB_URI type:', typeof process.env.MONGODB_URI);
     
     if (process.env.MONGODB_URI) {
       console.log('MONGODB_URI length:', process.env.MONGODB_URI.length);
-      console.log('URI starts with:', process.env.MONGODB_URI.substring(0, 30));
     }
     
-    console.log('Starting seed...');
+    console.log('Calling seedDatabase()...');
     const result = await seedDatabase();
     console.log('✅ Seed successful');
-    console.log('=== SEED COMPLETE ===\n');
+    console.log('=== SEED END ===\n');
     
     res.status(200).json(result);
   } catch (error) {
-    console.error('=== SEED ERROR ===');
-    console.error('Error name:', error.name);
+    console.error('\n=== SEED ERROR ===');
+    console.error('Error type:', error.constructor.name);
     console.error('Error message:', error.message);
-    console.error('Error stack:', error.stack);
-    console.error('=== END ERROR ===\n');
+    console.error('Error stack:', error.stack?.substring(0, 200));
+    console.error('=== SEED ERROR END ===\n');
     
     res.status(500).json({ 
       success: false, 
-      message: error.message,
-      error: error.name,
+      message: error.message || 'Seed failed',
+      error: error.constructor.name,
       mongodbUri: process.env.MONGODB_URI ? 'SET' : 'NOT SET'
     });
   }

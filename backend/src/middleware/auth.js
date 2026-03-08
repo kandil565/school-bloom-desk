@@ -26,6 +26,20 @@ export const authMiddleware = (req, res, next) => {
 
 export const asyncHandler = (fn) => {
   return (req, res, next) => {
-    Promise.resolve(fn(req, res, next)).catch(next);
+    try {
+      Promise.resolve(fn(req, res, next)).catch((err) => {
+        if (typeof next === 'function') {
+          next(err);
+        } else {
+          res.status(500).json({ error: err.message });
+        }
+      });
+    } catch (err) {
+      if (typeof next === 'function') {
+        next(err);
+      } else {
+        res.status(500).json({ error: err.message });
+      }
+    }
   };
 };
