@@ -67,25 +67,26 @@ app.use('/api/workshops', workshopRoutes);
 app.use('/api/curriculum', curriculumRoutes);
 app.use('/api/transportation', transportationRoutes);
 
-// Database seed endpoint (temporary for setup)
-app.get('/api/seed', async (req, res) => {
+// Database seed endpoint - MUST be before routes to avoid middleware issues
+const seedRouter = express.Router();
+seedRouter.get('/', async (req, res) => {
   try {
-    console.log('🌱 Seed endpoint called');
     const result = await seedDatabase();
-    res.status(200).json(result);
+    res.json(result);
   } catch (error) {
-    console.error('Seed error:', error.message);
-    res.status(500).json({ 
-      success: false, 
-      message: error.message || 'Seed failed'
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 });
 
+app.use('/api/seed', seedRouter);
+
 // Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'Server is running' });
+const healthRouter = express.Router();
+healthRouter.get('/', (req, res) => {
+  res.json({ status: 'Server is running' });
 });
+
+app.use('/api/health', healthRouter);
 
 // 404 handler (must be after all routes)
 app.use((req, res) => {
