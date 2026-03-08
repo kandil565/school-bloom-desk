@@ -108,9 +108,27 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'Server is running' });
 });
 
-// Error handlers
-app.use(notFoundHandler);
-app.use(errorHandler);
+// 404 handler (must be after all routes)
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found',
+  });
+});
+
+// Error handler (must be last)
+app.use((err, req, res, next) => {
+  console.error('Error handler caught:', err.message);
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+  });
+});
 
 // Start server only if not in serverless environment
 if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
