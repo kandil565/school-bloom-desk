@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Sidebar, { menuItems, getUserRole } from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
+import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -75,6 +76,8 @@ const DashboardLayout = () => {
         <main className="flex-1 px-4 py-5 sm:px-6 sm:py-8 md:px-8 md:py-10 mx-auto w-full max-w-screen-2xl">
           <Outlet />
         </main>
+
+        <Footer />
       </div>
     </div>
   );
